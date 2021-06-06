@@ -1,0 +1,150 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Drive4U",
+    "description": "API for File Storage Drive",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "posts",
+      "description": "API for users in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/posts": {
+      "get": {
+        "tags": ["posts"],
+        "summary": "Get all posts in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Posts"
+            }
+          }
+        }
+      }
+    },
+    "/posts/create": {
+      "post": {
+        "tags": ["posts"],
+        "summary": "Create a Post",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Create"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Posts"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "posts": {
+      "required": [
+        "likeCount",
+        "_id",
+        "creator",
+        "title",
+        "message",
+        "date",
+        "selectedFile"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "likeCount": {
+          "type": "integer"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "selectedFile": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "create": {
+      "required": [
+        "likeCount",
+        "creator",
+        "title",
+        "message",
+        "date",
+        "selectedFile"
+      ],
+      "properties": {
+        "likeCount": {
+          "type": "integer"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "selectedFile": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Posts": {
+      "type": "array",
+      "$ref": "#/definitions/posts"
+    },
+    "Create": {
+      "type": "array",
+      "$ref": "#/definitions/create"
+    }
+  }
+}

@@ -62,7 +62,7 @@ const Form = () => {
         className="py-2 focus:border-blue-500 border-2 rounded px-6 m-2 outline-none"
       />
       <span className="m-2">
-        <Filebase
+      <Filebase
           type="file"
           multiple={false}
           onDone={({ base64 }) => setData({ ...data, selectedFile: base64 })}

@@ -29,7 +29,7 @@ const Post = () => {
             <div className="pl-4 pr-4 text-justify text-xs">
               {read && readId === res._id ? (
                 <>
-                  <p>
+                  <div>
                     {res.message}{' '}
                     <p
                       className="mt-1 text-blue-600 cursor-pointer"
@@ -38,7 +38,7 @@ const Post = () => {
                       {' '}
                       read less
                     </p>
-                  </p>
+                  </div>
                 </>
               ) : (
                 <>
