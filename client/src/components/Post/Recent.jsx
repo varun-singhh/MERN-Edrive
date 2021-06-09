@@ -1,31 +1,48 @@
-// Dependencies
+//  Dependencies
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import { FaTrash } from 'react-icons/fa';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiFillStar, AiOutlineStar, AiOutlineDownload } from 'react-icons/ai';
-import { BsThreeDotsVertical } from 'react-icons/bs';
 
 // Request Functions
-import { LikesIncrease, starred } from '../../actions/post';
+import { Delete, LikesIncrease } from '../../actions/post';
+import { getposts } from '../../actions/post';
 
-const TrashPosts = (props) => {
+const Recent = (props) => {
   const { view } = props;
   const [state, setState] = useState('');
   const post = useSelector((state) => state?.posts);
+  const [recent, setRecent] = useState(post?.posts);
   const dispatch = useDispatch();
 
+  const remove = (e, id) => {
+    e.preventDefault();
+    dispatch(Delete(id));
+  };
   const updateLike = (e, id) => {
     e.preventDefault();
     dispatch(LikesIncrease(id));
   };
 
   useEffect(() => {
-    dispatch(starred());
+    dispatch(getposts());
+    recent?.sort(function compare(a, b) {
+      var dateA = new Date(a.createdAt);
+      var dateB = new Date(b.createdAt);
+      return dateB - dateA;
+    });
   }, [dispatch]);
+
   return (
-    <div className={`flex ml-5 w-full ${view ? 'flex-wrap' : 'flex-col'}`}>
-      {post?.starred &&
-        post?.starred.map((res) => (
+    <div
+      className={`flex ml-5 w-full transform duration-500 ${
+        view ? 'flex-wrap' : 'flex-col'
+      }`}
+    >
+      {recent &&
+        recent.map((res) => (
           <>
             {view ? (
               <div
@@ -52,6 +69,16 @@ const TrashPosts = (props) => {
                       />
                       {state === res._id ? (
                         <div className="absolute top-3 bg-white rounded z-10 shadow flex flex-col">
+                          {res.likeCount > 0 ? (
+                            ''
+                          ) : (
+                            <p
+                              className="flex items-center justify-between text-xs p-2 cursor-pointer mt-1 hover:bg-gray-100"
+                              onClick={(e) => remove(e, res._id)}
+                            >
+                              Delete <FaTrash className="ml-5 text-xs" />
+                            </p>
+                          )}
                           <a href={res.selectedFile} download>
                             <p className="flex items-center justify-between text-xs p-2 mt-1 hover:bg-gray-100">
                               Download{' '}
@@ -87,6 +114,16 @@ const TrashPosts = (props) => {
                     />
                     {state === res._id ? (
                       <div className="absolute top-3 bg-white rounded z-10 shadow flex flex-col">
+                        {res.likeCount > 0 ? (
+                          ''
+                        ) : (
+                          <p
+                            className="flex items-center justify-between text-xs p-2 cursor-pointer mt-1 hover:bg-gray-100"
+                            onClick={(e) => remove(e, res._id)}
+                          >
+                            Delete <FaTrash className="ml-5 text-xs" />
+                          </p>
+                        )}
                         <a href={res.selectedFile} download>
                           <p className="flex items-center justify-between text-xs p-2 mt-1 hover:bg-gray-100">
                             Download{' '}
@@ -100,10 +137,11 @@ const TrashPosts = (props) => {
                   </div>
                   <img src={res.selectedFile} className="h-10 w-10 ml-10" />
                 </p>
-                <p className="flex items-center text-sm p-2 text-gray-500 ">
+
+                <p className="flex items-center text-md p-2 text-gray-500 font-semibold">
                   {res.title}
                 </p>
-                <p className="flex items-center  text-sm p-2 pt-0 text-gray-400">
+                <p className="flex items-center  text-md p-2 pt-0 text-gray-400">
                   Created: {moment(res.createdAt).fromNow()}
                 </p>
               </div>
@@ -114,4 +152,4 @@ const TrashPosts = (props) => {
   );
 };
 
-export default TrashPosts;
+export default Recent;

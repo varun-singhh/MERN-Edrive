@@ -7,6 +7,7 @@ import Form from './components/Form/Form';
 import Post from './components/Post/Post';
 import Trash from './components/Post/Trash';
 import Star from './components/Post/Star';
+import Recent from './components/Post/Recent';
 
 const App = () => {
   const [view, setView] = useState(1);
@@ -33,7 +34,7 @@ const App = () => {
             <div className="flex mt-10">
               <Navbar nav="recents" />
               <div className="flex justify-between absolute left-56 w-4/5">
-                <Post view={view} />
+                <Recent view={view} />
               </div>
             </div>
           </div>
@@ -54,7 +55,7 @@ const App = () => {
             <Header state={state} />
             <div className="flex mt-10">
               <Navbar nav="trash" />
-              <div className="flex justify-between absolute left-56 w-4/5">
+              <div className="absolute left-56 w-4/5">
                 <Trash view={view} />
               </div>
             </div>
