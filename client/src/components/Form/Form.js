@@ -65,24 +65,36 @@ const Form = ({ modalOpen, close }) => {
         <FaTimesCircle onClick={() => close()} className="cursor-pointer" />
       </div>
       <div className="rounded flex flex-col bg-white p-3">
-        <p className="text-center uppercase font-bold text-blue-500 text-xl m-4">
-          Creating Memory
+        <p className="text-center uppercase font-bold text-gray-500 text-xl m-4">
+          Add Memory
         </p>
-        <input
-          name="creator"
-          defaultValue={data.creator}
-          placeholder="Enter Creator Name"
-          onChange={(e) => setData({ ...data, creator: e.target.value })}
-          type="text"
-          className="py-2 focus:border-blue-500 border-2 rounded px-6 m-2 outline-none"
-        />
+        <div className="">
+          {data.selectedFile ? (
+            <div className="p-6 flex items-cent justify-center border-2 border-blue-400 border-dashed text-xl font-bold text-gray-300">
+              <img src={data.selectedFile} className="h-44" />
+            </div>
+          ) : (
+            <div className="p-16 flex items-cent justify-center border-2 border-gray-300 border-dashed text-xl font-bold text-gray-300">
+              PREVIEW HERE
+            </div>
+          )}
+        </div>
+
         <input
           name="title"
           defaultValue={data.title}
           placeholder="Enter Title"
           onChange={(e) => setData({ ...data, title: e.target.value })}
           type="text"
-          className="py-2 focus:border-blue-500 border-2 rounded px-6 m-2 outline-none"
+          className="py-2 focus:border-blue-500 border-b-2 rounded px-6 mt-2 mb-2 outline-none transform duration-500"
+        />
+        {/* <input
+          name="creator"
+          defaultValue={data.creator}
+          placeholder="Enter Image Name"
+          onChange={(e) => setData({ ...data, creator: e.target.value })}
+          type="text"
+          className="py-2 focus:border-blue-500 border-b-2 rounded px-6 mt-2 mb-2 outline-none transform duration-500"
         />
         <input
           name="message"
@@ -99,26 +111,32 @@ const Form = ({ modalOpen, close }) => {
           onChange={(e) => setData({ ...data, tags: e.target.value })}
           type="text"
           className="py-2 focus:border-blue-500 border-2 rounded px-6 m-2 outline-none"
-        />
-        <span className="m-2">
+        /> */}
+        <span className="mt-5">
           <Filebase
             type="file"
             multiple={false}
             onDone={({ base64 }) => setData({ ...data, selectedFile: base64 })}
           />
         </span>
-        <button
-          className="bg-blue-500 py-2 px-10 rounded text-white mt-5 uppercase"
-          onClick={handleSubmit}
-        >
-          Upload
-        </button>
-        <button
+        {data.selectedFile ? (
+          <button
+            className="bg-blue-500 py-2 px-10 rounded text-white mt-5 uppercase hover:shadow-xl hover:scale-110 transform duration-500"
+            onClick={handleSubmit}
+          >
+            ADD
+          </button>
+        ) : (
+          <button className="bg-blue-500 py-2 px-10 rounded text-white mt-5 uppercase opacity-50 cursor-not-allowed">
+            Select Image
+          </button>
+        )}
+        {/* <button
           className="bg-red-400 py-1 px-10 rounded text-white mt-1 uppercase"
           onClick={clear}
         >
           Clear Form
-        </button>
+        </button> */}
       </div>{' '}
     </Modal>
   );

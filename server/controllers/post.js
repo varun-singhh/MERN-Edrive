@@ -113,7 +113,7 @@ export const restore = async (req, res) => {
     creator: find.creator,
     tags: find.tags,
     selectedFile: find.selectedFile,
-    likeCount: 1,
+    likeCount: 0,
     createdAt: find.createdAt,
   };
   const Restored = new PostMessage(restore);
