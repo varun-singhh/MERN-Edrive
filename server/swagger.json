@@ -29,7 +29,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Posts"
+              "$ref": "#/definitions/posts"
             }
           }
         }
@@ -45,7 +45,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Create"
+              "$ref": "#/definitions/create"
             }
           }
         ],
@@ -53,8 +53,73 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Posts"
+              "$ref": "#/definitions/posts"
             }
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "delete": {
+        "tags": ["posts"],
+        "summary": "Delete a Post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "203": {
+            "description": "Post Deleted"
+          },
+          "404": {
+            "description": "Invalid ID"
+          }
+        }
+      }
+    },
+    "/posts/update/{id}": {
+      "post": {
+        "tags": ["posts"],
+        "summary": "Update a Post",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/create"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/posts"
+            }
+          }
+        }
+      }
+    },
+    "/posts/likes/{id}": {
+      "put": {
+        "tags": ["posts"],
+        "summary": "Update a Post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liked the Post"
           }
         }
       }
@@ -103,18 +168,8 @@
       }
     },
     "create": {
-      "required": [
-        "likeCount",
-        "creator",
-        "title",
-        "message",
-        "date",
-        "selectedFile"
-      ],
+      "required": ["creator", "title", "message", "selectedFile"],
       "properties": {
-        "likeCount": {
-          "type": "integer"
-        },
         "creator": {
           "type": "string"
         },
@@ -122,9 +177,6 @@
           "type": "string"
         },
         "message": {
-          "type": "string"
-        },
-        "date": {
           "type": "string"
         },
         "selectedFile": {
@@ -137,14 +189,6 @@
           }
         }
       }
-    },
-    "Posts": {
-      "type": "array",
-      "$ref": "#/definitions/posts"
-    },
-    "Create": {
-      "type": "array",
-      "$ref": "#/definitions/create"
     }
   }
 }
