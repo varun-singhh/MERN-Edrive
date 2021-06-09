@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaDownload, FaTrash } from 'react-icons/fa';
 import {
   AiFillLike,
@@ -7,11 +7,10 @@ import {
   AiOutlineDownload,
 } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
-import { Delete, LikesIncrease } from '../../actions/post';
-import { getposts } from '../../actions/post';
+import { Delete, LikesIncrease, Trash } from '../../actions/post';
 import moment from 'moment';
 
-const Post = (props) => {
+const TrashPosts = (props) => {
   const post = useSelector((state) => state?.posts);
   const [read, setRead] = useState(0);
   const [readId, setReadId] = useState(0);
@@ -20,7 +19,7 @@ const Post = (props) => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getposts());
+    dispatch(Trash());
   }, [dispatch]);
   const remove = (e, id) => {
     e.preventDefault();
@@ -34,13 +33,13 @@ const Post = (props) => {
   const { view } = props;
   return (
     <div
-      className={`flex ml-5 w-full transform duration-500 ${
+      className={`flex ml-5 w-full ${
         view ? 'flex-wrap' : 'flex-col'
       } overflow-y-scroll overflow-x-hidden`}
       style={{ maxHeight: '35rem' }}
     >
-      {post?.posts &&
-        post?.posts.map((res) => (
+      {post?.trash &&
+        post?.trash.map((res) => (
           <>
             {view ? (
               <div
@@ -52,7 +51,7 @@ const Post = (props) => {
                   {res.title}
                 </p>
                 <p className=" pl-4 font-semibold text-justify text-xs text-green-500 mb-1">
-                  Created: {moment(res.createdAt).fromNow()}
+                  Deleted: {moment(res.DeletedOn).fromNow()}
                 </p>
                 <div className="pl-4 pr-4 text-justify text-xs">
                   {read && readId === res._id ? (
@@ -145,4 +144,4 @@ const Post = (props) => {
   );
 };
 
-export default Post;
+export default TrashPosts;

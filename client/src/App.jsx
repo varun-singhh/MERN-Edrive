@@ -1,30 +1,67 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
 import Form from './components/Form/Form';
 import Post from './components/Post/Post';
-import { useDispatch } from 'react-redux';
-import { getposts } from './actions/post';
+import Trash from './components/Post/Trash';
+import Star from './components/Post/Star';
 
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getposts());
-  }, [dispatch]);
-
+  const [view, setView] = useState(1);
+  const state = (val) => {
+    setView(val);
+  };
   return (
-    <div className="flex flex-col ">
-      <div className="flex items-center justify-center shadow-xl p-4 w-full">
-        <p className="text-xl font-bold text-blue-500 uppercase">Memories</p>
-        <img
-          src="https://raw.githubusercontent.com/adrianhajdin/project_mern_memories/master/client/src/images/memories.png?token=AF56X74XONEUGZ4FD2FUIA27UURPI"
-          alt="meomories"
-          className="h-10 ml-10"
-        />
-      </div>
-      <div className="flex justify-between mt-10">
-        <Post />
-        <Form />
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <div className="flex flex-col h-screen">
+            <Header state={state} />
+            <div className="flex mt-10">
+              <Navbar nav="home" />
+              <div className="flex justify-between absolute left-56  w-4/5 ">
+                <Post view={view} />
+              </div>
+            </div>
+          </div>
+        </Route>
+        <Route exact path="/recents">
+          <div className="flex flex-col h-screen">
+            <Header state={state} />
+            <div className="flex mt-10">
+              <Navbar nav="recents" />
+              <div className="flex justify-between absolute left-56 w-4/5">
+                <Post view={view} />
+              </div>
+            </div>
+          </div>
+        </Route>
+        <Route exact path="/starred">
+          <div className="flex flex-col h-screen">
+            <Header state={state} />
+            <div className="flex mt-10">
+              <Navbar nav="starred" />
+              <div className="flex justify-between absolute left-56 w-4/5">
+                <Star view={view} />
+              </div>
+            </div>
+          </div>
+        </Route>
+        <Route exact path="/trash">
+          <div className="flex flex-col h-screen">
+            <Header state={state} />
+            <div className="flex mt-10">
+              <Navbar nav="trash" />
+              <div className="flex justify-between absolute left-56 w-4/5">
+                <Trash view={view} />
+              </div>
+            </div>
+          </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 
