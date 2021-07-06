@@ -3,7 +3,11 @@ import mongoose from 'mongoose';
 const StarredSchema = mongoose.Schema({
   title: String,
   message: String,
-  creator: String,
+  creator: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
   tags: [String],
   selectedFile: String,
   post_id: String,
