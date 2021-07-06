@@ -121,7 +121,7 @@ const Form = ({ modalOpen, close }) => {
         </span>
         {data.selectedFile ? (
           <button
-            className="bg-blue-500 py-2 px-10 rounded text-white mt-5 uppercase hover:shadow-xl hover:scale-110 transform duration-500"
+            className="hover:bg-blue-600 bg-blue-500 py-2 px-10 rounded text-white mt-5 uppercase hover:shadow-xl transform duration-500"
             onClick={handleSubmit}
           >
             ADD

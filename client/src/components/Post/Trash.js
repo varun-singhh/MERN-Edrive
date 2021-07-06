@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { FaTrash } from 'react-icons/fa';
+import { BiLoaderAlt } from 'react-icons/bi';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { AiOutlineReload } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,25 +13,28 @@ import bin from '../../static/images/bin.jpg';
 
 const TrashPosts = (props) => {
   const { view } = props;
+  const [loading, setLoading] = useState('');
   const [state, setState] = useState('');
   const post = useSelector((state) => state?.posts);
   const dispatch = useDispatch();
 
   const FinalDelete = (e, id) => {
+    setLoading('Del');
     e.preventDefault();
     dispatch(remove(id));
   };
   const Restore = (e, id) => {
+    setLoading('res');
     e.preventDefault();
     dispatch(restore(id));
   };
   useEffect(() => {
     dispatch(Trash());
   }, [dispatch]);
-
+  console.log(post?.trash?.length);
   return (
     <>
-      {post?.trash?.length === 0 ? (
+      {! post?.trash?.length ? (
         <div className="flex justify-center items-center flex-col mt-10">
           <img className=" h-56" src={bin} />
         </div>
@@ -63,7 +67,11 @@ const TrashPosts = (props) => {
                               onClick={(e) => Restore(e, res._id)}
                             >
                               Restore{' '}
-                              <AiOutlineReload className="ml-5 text-xs" />
+                              {loading !== 'res' ? (
+                                <AiOutlineReload className="ml-5 text-xs " />
+                              ) : (
+                                <BiLoaderAlt className="ml-5 text-xs animate-spin" />
+                              )}
                             </p>
                             <p
                               className="cursor-pointer flex items-center justify-between text-xs p-2 mt-1 hover:bg-gray-100"
