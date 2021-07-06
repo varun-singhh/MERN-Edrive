@@ -19,9 +19,9 @@ const Navbar = (props) => {
         <input
           type="text"
           placeholder="Search in Memory"
-          className="placeholder-gray-500 p-3 px-5 w-full rounded bg-gray-100 focus:bg-white focus:shadow rounded-tl-xl rounded-bl-xl"
+          className="placeholder-gray-500 py-3 px-5 w-full rounded bg-gray-100 focus:bg-white focus:shadow rounded-tl-xl rounded-bl-xl"
         />
-        <p className="bg-gray-200 p-3 rounded-tr-xl rounded-br-xl hover:bg-white hover:shadow cursor-pointer transform duration-700">
+        <p className="bg-gray-200 py-3 px-5 rounded-tr-xl rounded-br-xl hover:bg-white shadow cursor-pointer transform duration-700">
           <FaSearch className="text-xl text-gray-400" />
         </p>
       </div>

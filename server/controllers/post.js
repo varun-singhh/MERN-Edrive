@@ -5,14 +5,16 @@ import StarredMessage from '../models/StarredMessage.js';
 
 export const getPosts = async (req, res) => {
   try {
-    const postMessages = await PostMessage.find();
+    const postMessages = await PostMessage.find({
+      creator: mongoose.Types.ObjectId(req.user),
+    });
     res.status(200).json(postMessages);
   } catch {
     res.status(404).json({ message: error.message });
   }
 };
 export const createPost = async (req, res) => {
-  const post = { ...req.body, createdAt: new Date() };
+  const post = { ...req.body, creator: req.user, createdAt: new Date() };
   const newPost = new PostMessage(post);
   try {
     await newPost.save();
@@ -24,9 +26,14 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   const { id: _id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send('No Post with that ID');
+    return res.status(404).json({ error: 'No Post with this ID' });
   const post = req.body;
-
+  const msg = await PostMessage.find({
+    creator: mongoose.Types.ObjectId(req.user),
+    _id,
+  });
+  console.log(msg);
+  if (!msg) return res.status(404).json({ error: 'Not the owner of Image' });
   const UpdatedPost = await PostMessage.findByIdAndUpdate(_id, post, {
     new: true,
   });
@@ -41,7 +48,7 @@ export const DeletePost = async (req, res) => {
   const newTrash = {
     title: post.title,
     message: post.message,
-    creator: post.creator,
+    creator: req.user,
     tags: post.tags,
     selectedFile: post.selectedFile,
     likeCount: post.likeCount,
@@ -53,7 +60,7 @@ export const DeletePost = async (req, res) => {
     await TrashPost.save();
     await PostMessage.findByIdAndDelete(_id);
     res.status(203).json({ message: 'Post Deleted' });
-  } catch {
+  } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
@@ -135,7 +142,7 @@ export const RemovePost = async (req, res) => {
   try {
     await TrashMessage.findByIdAndDelete(_id);
     res.status(203).json({ message: 'Post Deleted' });
-  } catch {
+  } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
