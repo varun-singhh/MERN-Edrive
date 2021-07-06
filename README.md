@@ -15,7 +15,7 @@ Edrive
      |-------Server (Backend)
 ```
 
-## Features of Vovoca:
+## Features of MERN-Edrive:
 
 - Upload Image
 - Download Mage
@@ -65,11 +65,11 @@ npm install
 ```
 
 
-[forks-shield]: 	https://img.shields.io/github/forks/varun-singhh/vovoca
+[forks-shield]: 	https://img.shields.io/github/forks/varun-singhh/MERN-Edrive
 [forks-url]:      https://github.com/varun-singhh/MERN-Edrive/network/members
-[stars-shield]: 	https://img.shields.io/github/stars/varun-singhh/vovoca
+[stars-shield]: 	https://img.shields.io/github/stars/varun-singhh/MERN-Edrive
 [stars-url]:      https://github.com/varun-singhh/MERN-Edrive/stargazers
-[issues-shield]: 	https://img.shields.io/github/issues/varun-singhh/vovoca
+[issues-shield]: 	https://img.shields.io/github/issues/varun-singhh/MERN-Edrive
 [issues-url]:     https://github.com/varun-singhh/MERN-Edrive/issues
 
 ## Deploy on Netlify and Heroku
