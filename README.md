@@ -1,12 +1,14 @@
-[![Forks][forks-shield]][forks-url]
+<!-- [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-
+ -->
 
 ## What is MERN Edrive?
+
 This is basically an e drive similar as google photos where one can upload, download and manage the photos, it is also authenticated using JWT.
 
 ## File Stucture of MERN Edrive?
+
 ```
 Edrive
      |-------Client (Frontend)
@@ -24,6 +26,7 @@ Edrive
 - Search Images
 
 ## Dependencies used frontend:
+
 ```
 - React Redux
 - Redux
@@ -33,7 +36,9 @@ Edrive
 - React Toastify
 - React Icons
 ```
+
 ## Dependencies used backend:
+
 ```
 - Mongoose
 - Express
@@ -64,13 +69,12 @@ Install all the Dependencies:
 npm install
 ```
 
-
-[forks-shield]: 	https://img.shields.io/github/forks/varun-singhh/MERN-Edrive
+<!-- [forks-shield]: 	https://img.shields.io/github/forks/varun-singhh/MERN-Edrive
 [forks-url]:      https://github.com/varun-singhh/MERN-Edrive/network/members
 [stars-shield]: 	https://img.shields.io/github/stars/varun-singhh/MERN-Edrive
 [stars-url]:      https://github.com/varun-singhh/MERN-Edrive/stargazers
 [issues-shield]: 	https://img.shields.io/github/issues/varun-singhh/MERN-Edrive
-[issues-url]:     https://github.com/varun-singhh/MERN-Edrive/issues
+[issues-url]:     https://github.com/varun-singhh/MERN-Edrive/issues -->
 
 ## Deploy on Netlify and Heroku
 
